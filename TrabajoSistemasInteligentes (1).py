@@ -460,7 +460,7 @@ import tkinter as tk
 from tkinter import scrolledtext
 class R_Noticias(ttk.Frame):
     
-    def __init__(self, main_window,sanidad,tecnologia,ciencia):
+    def __init__(self, main_window,sanidad,ciencia):
         super().__init__(main_window)
         self.grid()
         #self.usuario= Usuario.__new__(Usuario)
@@ -471,7 +471,7 @@ class R_Noticias(ttk.Frame):
         self.sort=[]
         self.tema=''
         self.usuario_sanidad=Usuario('','sanidad',5,self.sanidad)
-        self.usuario_tecnologia=Usuario('','tecnologia',5,self.tecnologia)
+        #self.usuario_tecnologia=Usuario('','tecnologia',5,self.tecnologia)
         self.usuario_ciencia=Usuario('','ciencia',5,self.ciencia)
         self.page=''
         #self.data = Data(self.webPage)
@@ -526,8 +526,8 @@ class R_Noticias(ttk.Frame):
     def selection_changed(self, event):
         if self.categoria.get() in 'Sanidad':
             init_list=self.sanidad.getTitulo()
-        elif self.categoria.get() == 'Tecnología':
-            init_list=self.tecnologia.getTitulo()
+      #  elif self.categoria.get() == 'Tecnología':
+      #      init_list=self.tecnologia.getTitulo()
         elif self.categoria.get() == 'Ciencia':
             init_list=self.ciencia.getTitulo()
         lista = [x for x in init_list]
@@ -541,10 +541,10 @@ class R_Noticias(ttk.Frame):
             self.usuario_sanidad=Usuario(self.noticias.get(),'sanidad',5,self.sanidad)
             self.usuario_sanidad.cargarSeleccion()
             self.text_area.insert(END,str(self.sanidad.mostrarArticulo()))
-        elif self.categoria.get() == 'Tecnología':
-            self.usuario_tecnologia=Usuario(self.noticias.get(),'tecnologia',5,self.tecnologia)
-            self.usuario_tecnologia.cargarSeleccion()
-            self.text_area.insert(END,self.tecnologia.mostrarArticulo())
+      #  elif self.categoria.get() == 'Tecnología':
+       #     self.usuario_tecnologia=Usuario(self.noticias.get(),'tecnologia',5,self.tecnologia)
+       #     self.usuario_tecnologia.cargarSeleccion()
+       #     self.text_area.insert(END,self.tecnologia.mostrarArticulo())
         elif self.categoria.get() == 'Ciencia':
             self.usuario_ciencia=Usuario(self.noticias.get(),'ciencia',5,self.ciencia)
             self.usuario_ciencia.cargarSeleccion()
@@ -555,10 +555,10 @@ class R_Noticias(ttk.Frame):
             self.usuario_sanidad.setTop(int(self.top_items.get()))
             self.sort=self.sanidad.similitud(self.sanidad.other_etiquetas)
             init_list=self.sanidad.similitudes
-        elif self.categoria.get() == 'Tecnología':
-            self.usuario_tecnologia.setTop(int(self.top_items.get()))
-            self.sort=self.tecnologia.similitud(self.tecnologia.other_etiquetas)
-            init_list=self.tecnologia.similitudes
+      #  elif self.categoria.get() == 'Tecnología':
+        #    self.usuario_tecnologia.setTop(int(self.top_items.get()))
+        #    self.sort=self.tecnologia.similitud(self.tecnologia.other_etiquetas)
+        #    init_list=self.tecnologia.similitudes
         elif self.categoria.get() == 'Ciencia':
             self.usuario_ciencia.setTop(int(self.top_items.get()))
             self.sort=self.ciencia.similitud(self.ciencia.other_etiquetas)
@@ -572,9 +572,9 @@ class R_Noticias(ttk.Frame):
         if self.categoria.get() in 'Sanidad':
             articulo= self.sanidad.getSimilitud_Paginas(self.sort[self.top_articulos.current()])
             self.otras_noticias.insert(END,articulo)
-        elif self.categoria.get() == 'Tecnología':
-            articulo= self.tecnologia.getSimilitud_Paginas(self.sort[self.top_articulos.current()])
-            self.otras_noticias.insert(END,articulo)
+     #   elif self.categoria.get() == 'Tecnología':
+        #    articulo= self.tecnologia.getSimilitud_Paginas(self.sort[self.top_articulos.current()])
+        #    self.otras_noticias.insert(END,articulo)
         elif self.categoria.get() == 'Ciencia':
             articulo= self.ciencia.getSimilitud_Paginas(self.sort[self.top_articulos.current()])
             self.otras_noticias.insert(END,articulo)
@@ -585,22 +585,22 @@ class R_Noticias(ttk.Frame):
 sanidad=WebPages('sanidad','https://elpais.com/noticias/sanidad/' )
 sanidad.escritura(sanidad.miPais_news_scraper(),'sanidad.data.json')
 #tecnologia
-tecnologia=WebPages('tecnologia','https://elpais.com/tecnologia/')
-tecnologia.escritura(tecnologia.miPais_news_scraper(),'tecnologia.data.json')
+#tecnologia=WebPages('tecnologia','https://elpais.com/tecnologia/')
+#tecnologia.escritura(tecnologia.miPais_news_scraper(),'tecnologia.data.json')
 #ciencia
 ciencia=WebPages('ciencia','https://elpais.com/ciencia/' )
 ciencia.escritura(ciencia.miPais_news_scraper(),'ciencia.data.json')
 data_sanidad=Data(sanidad)
 data_ciencia=Data(ciencia)
-data_tecnologia=Data(tecnologia)
+#data_tecnologia=Data(tecnologia)
 data_sanidad.saveArticle()       
 data_sanidad.getEtiqueta()
 data_ciencia.saveArticle()       
 data_ciencia.getEtiqueta()
-data_tecnologia.saveArticle()       
-data_tecnologia.getEtiqueta()
+#data_tecnologia.saveArticle()       
+#data_tecnologia.getEtiqueta()
 main_window = tk.Tk()
-recomendacion_n = R_Noticias(main_window,data_sanidad,data_tecnologia,data_ciencia)
+recomendacion_n = R_Noticias(main_window,data_sanidad,data_ciencia)
 main_window.geometry("750x550")
 main_window.mainloop()
 
